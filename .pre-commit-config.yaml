@@ -1,0 +1,68 @@
+default_stages: [pre-commit]
+exclude: '.*__init__\.py$'
+
+# Install
+# 1. pre-commit install
+# 2. pre-commit run --all-files  # make sure all files are clean
+repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.11.5
+    hooks:
+      - id: isort
+        args: ['--profile', 'black']
+        exclude: >-
+            (?x)^(
+            .*__init__\.py$
+            )
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.0.284
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        args: ['--line-length', '80']  # Adhere to Google Style Guide
+
+  - repo: https://github.com/pre-commit/mirrors-yapf
+    rev: v0.32.0
+    hooks:
+      - id: yapf
+        args: ['--style', '{based_on_style: google, column_limit: 80, indent_width: 2}']  # Google Style with 2 spaces
+        additional_dependencies: [configparser]  # Ensures compatibility
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: Pylint (Google Style)
+        entry: pylint
+        args: ['--rcfile=pylintrc']
+        language: system
+        types: [python]
+
+
+  # - repo: https://github.com/google/pytype
+  #   rev: 2024.10.11
+  #   hooks:
+  #     - id: pytype
+  #       name: Pytype (Type Checking)
+  #       entry: pytype
+  #       args: ['--disable=import-error', '--config=pytype.cfg']
+  #       language: python
+  #       types: [python]
+  #       always_run: true
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Run Pytest
+        entry: pytest
+        args: ['tests']
+        language: system
+        pass_filenames: false
+        always_run: true
+        verbose: true
