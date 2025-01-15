@@ -13,25 +13,23 @@ LOG_FOLDER = None
 LOG_FOLDER = ""
 
 if LOG_FOLDER is not None:
-    df = load_df_folder(LOG_FOLDER)
-    if df.iloc[0]["experiment"] == Experiment.MAIN_TABLE.name:
-        _, table = generate_main_results(df)
-        print("")
-        print(table)
-    elif df.iloc[0]["experiment"] == Experiment.LESS_SAMPLES.name:
-        _, table = generate_main_results_less_samples(df)
-        print("")
-        print(table)
-    elif df.iloc[0]["experiment"] == Experiment.OOD_INSIGHT.name:
-        _, table = generate_main_results_ood_table(df)
-        print("")
-        print(table)
-    elif (
-        df.iloc[0]["experiment"] == Experiment.D3_ABLATION_NO_CRITIC.name
-        or df.iloc[0]["experiment"] == Experiment.D3_ABLATION_NO_MEMORY.name
-    ):
-        _, table = generate_main_results(df)
-        print("")
-        print(table)
+  df = load_df_folder(LOG_FOLDER)
+  if df.iloc[0]["experiment"] == Experiment.MAIN_TABLE.name:
+    _, table = generate_main_results(df)
+    print("")
+    print(table)
+  elif df.iloc[0]["experiment"] == Experiment.LESS_SAMPLES.name:
+    _, table = generate_main_results_less_samples(df)
+    print("")
+    print(table)
+  elif df.iloc[0]["experiment"] == Experiment.OOD_INSIGHT.name:
+    _, table = generate_main_results_ood_table(df)
+    print("")
+    print(table)
+  elif (df.iloc[0]["experiment"] == Experiment.D3_ABLATION_NO_CRITIC.name or
+        df.iloc[0]["experiment"] == Experiment.D3_ABLATION_NO_MEMORY.name):
+    _, table = generate_main_results(df)
+    print("")
+    print(table)
 else:
-    pass
+  pass

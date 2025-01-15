@@ -1,5 +1,5 @@
 def system_prompt():
-    return """
+  return """
 Objective: Write code to create an effective differential equation simulator for a given task.
 Please note that the code should be fully functional. No placeholders.
 
@@ -12,8 +12,8 @@ Use the functions provided. When calling functions only provide a RFC8259 compli
 
 
 def get_system_description(env_name):
-    if env_name == "Cancer":
-        return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
+  if env_name == "Cancer":
+    return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
 
 Here you must model the state differential of tumor_volume, and chemotherapy_drug_concentration; with the input actions of chemotherapy_dosage, and radiotherapy_dosage.
 
@@ -32,8 +32,8 @@ Additionally these variables have the ranges of:
 * radiotherapy_dosage: [0, 2.0]
 
 The training dataset consists of 1000 patients, where each patient is observed for 60 days."""
-    elif env_name == "Cancer-ood" or env_name == "Cancer-iid":
-        return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
+  elif env_name == "Cancer-ood" or env_name == "Cancer-iid":
+    return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
 
 Here you must model the state differential of tumor_volume, and chemotherapy_drug_concentration; with the input actions of chemotherapy_dosage, and radiotherapy_dosage.
 
@@ -52,8 +52,8 @@ Additionally these variables have the ranges of:
 * radiotherapy_dosage: [0, 2.0]
 
 The training dataset consists of 1000 patients, where each patient is observed for 60 hours."""
-    elif env_name == "Cancer-untreated":
-        return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
+  elif env_name == "Cancer-untreated":
+    return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
 
 Here you must model the state differential of tumor_volume. There are not treatments applied.
 
@@ -66,8 +66,8 @@ Additionally these variables have the ranges of:
 * tumor_volume: [0.64196031, 4852.45734281]
 
 The training dataset consists of 1000 patients, where each patient is observed for 60 days."""
-    elif env_name == "Cancer-chemo":
-        return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
+  elif env_name == "Cancer-chemo":
+    return """Prediction of Treatment Response for Combined Chemo and Radiation Therapy for Non-Small Cell Lung Cancer Patients Using a Bio-Mathematical Model
 
 Here you must model the state differential of tumor_volume, and chemotherapy_drug_concentration; with the input actions of chemotherapy_dosage.
 
@@ -84,8 +84,8 @@ Additionally these variables have the ranges of:
 * chemotherapy_dosage: [0, 5.0]
 
 The training dataset consists of 1000 patients, where each patient is observed for 60 days."""
-    elif env_name == "Dataset-3DLV":
-        return """"Modeling Artificial Tri-Trophic Prey-Predator Oscillations in a Simplified Ecological System
+  elif env_name == "Dataset-3DLV":
+    return """"Modeling Artificial Tri-Trophic Prey-Predator Oscillations in a Simplified Ecological System
 
 Here you must model the state differential of algae_population, flagellate_population, and rotifer_population; with no input actions. This aims to simulate the population dynamics within a simplified tri-trophic ecological system comprising prey (algae), intermediate predators (flagellates), and top predators (rotifers). The interactions include direct predation and competition for resources, mirroring natural intraguild predation mechanisms.
 
@@ -103,8 +103,8 @@ Additionally these variables have the ranges of:
 
 The training dataset consists of 70 time steps, validation and training dataset consists of 15 time steps each.
 """
-    elif env_name == "Dataset-HL":
-        return """"Modeling Di-Trophic Prey-Predator Dynamics in a Hare and Lynx Ecological System
+  elif env_name == "Dataset-HL":
+    return """"Modeling Di-Trophic Prey-Predator Dynamics in a Hare and Lynx Ecological System
 
 Here you must model the state differential of hare_population, and lynx_population; with the additional input of time_in_years. This aims to simulate the population dynamics within a simplified di-trophic ecological system comprising prey (hares), and predators (lynxes). The interactions include direct predation and competition for resources, mirroring natural predator-prey mechanisms.
 
@@ -121,8 +121,8 @@ Additionally these variables have the ranges of:
 
 The training dataset consists of 63 time steps, validation and training dataset consists of 14 time steps each.
 """
-    elif env_name == "warfarin":
-        return """Development of a PKPD Model for Predicting Warfarin Concentration Dynamics in Patients Based on Dosage, Age, and Sex
+  elif env_name == "warfarin":
+    return """Development of a PKPD Model for Predicting Warfarin Concentration Dynamics in Patients Based on Dosage, Age, and Sex
 
 Here you must model the state differential of warfarin_concentration; with the input actions of warfarin_dosage, patient_age and patient_sex.
 
@@ -141,8 +141,8 @@ Additionally these variables have the ranges of:
 * patient_sex: [0, 1]
 
 The training dataset consists of 29 patients, where each patient is observed for 7 time points."""
-    elif env_name == "COVID":
-        return """Prediction model of COVID-19 Epidemic Dynamics
+  elif env_name == "COVID":
+    return """Prediction model of COVID-19 Epidemic Dynamics
 
 Here you must model the state differential of susceptible, exposed, infected and recovered; with the input action of a constant total_population. There are no interventions applied. Here the states are normalized ratios of the total fixed population.
 
@@ -163,17 +163,14 @@ Additionally these variables have the ranges of:
 * total_population: [10000, 10000]
 
 The training dataset consists of 24 countries, where each country is observed for 60 days."""
-    else:
-        raise NotImplementedError
+  else:
+    raise NotImplementedError
 
 
 def get_skeleton_code(env_name):
-    if (
-        env_name == "Cancer"
-        or env_name == "Cancer-ood"
-        or env_name == "Cancer-iid"
-    ):
-        return """class StateDifferential(nn.Module):
+  if (env_name == "Cancer" or env_name == "Cancer-ood" or
+      env_name == "Cancer-iid"):
+    return """class StateDifferential(nn.Module):
     def __init__(self):
         super(StateDifferential, self).__init__()
         # TODO: Fill in the code here
@@ -181,8 +178,8 @@ def get_skeleton_code(env_name):
     def forward(self, tumor_volume: torch.Tensor, chemotherapy_drug_concentration: torch.Tensor, chemotherapy_dosage: torch.Tensor, radiotherapy_dosage: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         # TODO: Fill in the code here
         return (d_tumor_volume__dt, d_chemotherapy_drug_concentration__dt)"""
-    elif env_name == "Cancer-chemo":
-        return """class StateDifferential(nn.Module):
+  elif env_name == "Cancer-chemo":
+    return """class StateDifferential(nn.Module):
     def __init__(self):
         super(StateDifferential, self).__init__()
         # TODO: Fill in the code here
@@ -190,8 +187,8 @@ def get_skeleton_code(env_name):
     def forward(self, tumor_volume: torch.Tensor, chemotherapy_drug_concentration: torch.Tensor, chemotherapy_dosage: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         # TODO: Fill in the code here
         return (d_tumor_volume__dt, d_chemotherapy_drug_concentration__dt)"""
-    elif env_name == "Cancer-untreated":
-        return """class StateDifferential(nn.Module):
+  elif env_name == "Cancer-untreated":
+    return """class StateDifferential(nn.Module):
     def __init__(self):
         super(StateDifferential, self).__init__()
         # TODO: Fill in the code here
@@ -199,8 +196,8 @@ def get_skeleton_code(env_name):
     def forward(self, tumor_volume: torch.Tensor) -> Tuple[torch.Tensor]:
         # TODO: Fill in the code here
         return (d_tumor_volume__dt)"""
-    elif env_name == "Dataset-3DLV":
-        return """class StateDifferential(nn.Module):
+  elif env_name == "Dataset-3DLV":
+    return """class StateDifferential(nn.Module):
     def __init__(self):
         super(StateDifferential, self).__init__()
         # TODO: Fill in the code here
@@ -208,8 +205,8 @@ def get_skeleton_code(env_name):
     def forward(self, prey_population: torch.Tensor, intermediate_population: torch.Tensor, top_predators_population: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         # TODO: Fill in the code here
         return (d_prey_population__dt, d_intermediate_population__dt, d_top_predators_population__dt)"""
-    elif env_name == "Dataset-HL":
-        return """class StateDifferential(nn.Module):
+  elif env_name == "Dataset-HL":
+    return """class StateDifferential(nn.Module):
     def __init__(self):
         super(StateDifferential, self).__init__()
         # TODO: Fill in the code here
@@ -217,8 +214,8 @@ def get_skeleton_code(env_name):
     def forward(self, hare_population: torch.Tensor, lynx_population: torch.Tensor, time_in_years: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         # TODO: Fill in the code here
         return (d_hare_population__dt, d_lynx_population__dt)"""
-    elif env_name == "COVID":
-        return """class StateDifferential(nn.Module):
+  elif env_name == "COVID":
+    return """class StateDifferential(nn.Module):
     def __init__(self):
         super(StateDifferential, self).__init__()
         # TODO: Fill in the code here
@@ -226,8 +223,8 @@ def get_skeleton_code(env_name):
     def forward(self, susceptible: torch.Tensor, exposed: torch.Tensor, infected: torch.Tensor, recovered: torch.Tensor, total_population: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
         # TODO: Fill in the code here
         return (d_susceptible__dt, d_exposed__dt, d_infected__dt, d_recovered__dt)"""
-    elif env_name == "warfarin":
-        return """class StateDifferential(nn.Module):
+  elif env_name == "warfarin":
+    return """class StateDifferential(nn.Module):
     def __init__(self):
         super(StateDifferential, self).__init__()
         # TODO: Fill in the code here
@@ -235,14 +232,14 @@ def get_skeleton_code(env_name):
     def forward(self, warfarin_concentration: torch.Tensor, warfarin_dosage: torch.Tensor, patient_age: torch.Tensor, patient_sex: torch.Tensor) -> Tuple[torch.Tensor]:
         # TODO: Fill in the code here
         return (d_warfarin_concentration__dt)"""
-    else:
-        raise NotImplementedError
+  else:
+    raise NotImplementedError
 
 
 def first_task_prompt(env_name, generations=20, current_iteration=0):
-    system_description = get_system_description(env_name)
-    skeleton_code = get_skeleton_code(env_name)
-    return f"""
+  system_description = get_system_description(env_name)
+  skeleton_code = get_skeleton_code(env_name)
+  return f"""
 You will get a system description to code a differential equation simulator for.
 
 System Description:```
@@ -287,7 +284,6 @@ Think step-by-step, and then give the complete full working code. You are genera
 #             initial_prompt = f"""
 # You will get a environment task description to code a differential equation simulator for.
 
-
 # Environment Task description:```
 # A COVID-19 model for a country including interventions.
 # ```
@@ -328,7 +324,6 @@ Think step-by-step, and then give the complete full working code. You are genera
 #             initial_prompt = f"""
 # You will get a environment task description to code a differential equation simulator for.
 
-
 # Environment Task description:```
 # A COVID-19 model for a country including interventions.
 # ```
@@ -368,7 +363,6 @@ Think step-by-step, and then give the complete full working code. You are genera
 #             high_range = self.env.train_data[0].max((0,1))
 #             initial_prompt = f"""
 # You will get a environment task description to code a differential equation simulator for.
-
 
 # Environment Task description:```
 # A COVID-19 model for a country.
