@@ -2,7 +2,6 @@
 .DS_Store
 libs/vancomycin/data/MOA_rawpredictions.csv
 saved_models
-*.png
 *.bak
 *.dat
 *.dir
